@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/devlibrary">
+        <file>images/oper_add.png</file>
+        <file>images/oper_edit.png</file>
+        <file>images/oper_remove.png</file>
+        <file>images/explorer_product.png</file>
+        <file>images/category.png</file>
+    </qresource>
+</RCC>

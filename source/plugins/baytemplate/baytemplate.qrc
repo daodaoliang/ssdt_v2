@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/baytemplate">
+        <file>images/oper_add.png</file>
+        <file>images/oper_edit.png</file>
+        <file>images/oper_remove.png</file>
+        <file>images/category.png</file>
+        <file>images/explorer_template.png</file>
+    </qresource>
+</RCC>

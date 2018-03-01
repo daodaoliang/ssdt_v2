@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/core">
+        <file>images/view_electrical.png</file>
+        <file>images/view_physical.png</file>
+        <file>images/open.png</file>
+        <file>images/refresh.png</file>
+        <file>images/close.png</file>
+        <file>images/options.png</file>
+        <file>images/explorer_project.png</file>
+    </qresource>
+</RCC>

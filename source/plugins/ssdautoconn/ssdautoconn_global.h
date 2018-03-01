@@ -1,0 +1,12 @@
+#ifndef SSDAUTOCONN_GLOBAL_H
+#define SSDAUTOCONN_GLOBAL_H
+
+#include <QtGlobal>
+
+#if defined(SSDAUTOCONN_LIBRARY)
+#  define SSDAUTOCONN_EXPORT Q_DECL_EXPORT
+#else
+#  define SSDAUTOCONN_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // SSDAUTOCONN_GLOBAL_H

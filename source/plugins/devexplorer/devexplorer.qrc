@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/devexplorer">
+        <file>images/devmode_checked.png</file>
+        <file>images/devmode_hovered.png</file>
+        <file>images/devmode_normal.png</file>
+        <file>images/oper_add.png</file>
+        <file>images/oper_edit.png</file>
+        <file>images/oper_remove.png</file>
+    </qresource>
+</RCC>

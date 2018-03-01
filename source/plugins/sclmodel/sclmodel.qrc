@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/sclmodel">
+        <file>images/subnetworkmode_checked.png</file>
+        <file>images/subnetworkmode_hovered.png</file>
+        <file>images/subnetworkmode_normal.png</file>
+        <file>images/vterminalconnmode_checked.png</file>
+        <file>images/vterminalconnmode_hovered.png</file>
+        <file>images/vterminalconnmode_normal.png</file>
+        <file>images/oper_edit.png</file>
+        <file>images/oper_link.png</file>
+        <file>images/oper_refresh.png</file>
+        <file>images/oper_remove.png</file>
+        <file>images/oper_batchedit.png</file>
+        <file>images/oper_checklink.png</file>
+        <file>images/oper_mark.png</file>
+        <file>images/open_autolink.png</file>
+    </qresource>
+</RCC>

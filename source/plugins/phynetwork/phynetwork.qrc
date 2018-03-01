@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/phynetwork">
+        <file>images/cablemode_checked.png</file>
+        <file>images/cablemode_hovered.png</file>
+        <file>images/cablemode_normal.png</file>
+        <file>images/cubicleconnmode_checked.png</file>
+        <file>images/cubicleconnmode_hovered.png</file>
+        <file>images/cubicleconnmode_normal.png</file>
+        <file>images/infosetmode_checked.png</file>
+        <file>images/infosetmode_hovered.png</file>
+        <file>images/infosetmode_normal.png</file>
+        <file>images/oper_add.png</file>
+        <file>images/oper_edit.png</file>
+        <file>images/oper_refresh.png</file>
+        <file>images/oper_refreshall.png</file>
+        <file>images/oper_remove.png</file>
+        <file>images/oper_removeall.png</file>
+        <file>images/oper_adjust.png</file>
+        <file>images/oper_merge.png</file>
+        <file>images/oper_split.png</file>
+        <file>images/oper_settings.png</file>
+    </qresource>
+</RCC>

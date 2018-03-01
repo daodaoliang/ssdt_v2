@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/projectexplorer">
+        <file>images/pe_bay.png</file>
+        <file>images/pe_board.png</file>
+        <file>images/pe_cubicle.png</file>
+        <file>images/pe_ied.png</file>
+        <file>images/pe_infoset.png</file>
+        <file>images/pe_odf.png</file>
+        <file>images/pe_port.png</file>
+        <file>images/pe_project.png</file>
+        <file>images/pe_room.png</file>
+        <file>images/pe_strap.png</file>
+        <file>images/pe_switch.png</file>
+        <file>images/pe_vterminalconn.png</file>
+        <file>images/pe_projectversion.png</file>
+        <file>images/pe_subnetwork.png</file>
+        <file>images/pe_vterminal.png</file>
+        <file>sql/create_project.sql</file>
+        <file>sql/copy_project.sql</file>
+        <file>images/pe_cable.png</file>
+    </qresource>
+</RCC>

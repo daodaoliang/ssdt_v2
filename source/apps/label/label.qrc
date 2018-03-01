@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/label">
+        <file>images/open.png</file>
+        <file>images/refresh.png</file>
+        <file>images/close.png</file>
+        <file>images/exportdb.png</file>
+        <file>images/exportexcel.png</file>
+    </qresource>
+</RCC>

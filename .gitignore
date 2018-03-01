@@ -37,3 +37,12 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+#Other
+/autoconnect/
+/document/
+/template/
+/deployment/bin/
+/deployment/mysql/
+/deployment/share/ssdautoconn/
+/deployment/share/vlinkparse/
+/source/build/

@@ -1,0 +1,246 @@
+QStackedWidget {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+QAbstractItemView {
+    alternate-background-color: rgb(242,242,255);
+}
+
+QGroupBox {
+    border: 1px solid lightgray;
+    margin-top: 8px;
+    padding-top: 2px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    padding: 0 3px;
+}
+
+QPushButton {
+    background-color: rgb(240,240,240);
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    min-width: 4em;
+    padding: 4px;
+}
+
+QPushButton:hover:pressed {
+    background-color: gray;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+QPushButton:hover {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(105,155,200);
+}
+
+QLineEdit {
+    border: 1px solid gray;
+}
+
+QLineEdit#RoundLineEdit {
+    border: 1px solid gray;
+    border-radius: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+QSpinBox {
+    border: 1px solid gray;
+}
+
+QComboBox {
+    border: 1px solid gray;
+    padding: 0px 5px 0px 3px;
+}
+
+QComboBox#RoundComboBox {
+    border: 1px solid gray;
+    border-radius: 2px;
+    padding: 0px 5px 0px 3px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 15px;
+    border-left-color: darkgray;
+    border-left-width: 1px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/styledui/qss/arrow_down.png);
+}
+
+QTreeView#Styled_TreeView {
+    background-color: rgba(220, 229, 237);
+}
+
+QTableView#Styled_TableView {
+    background-color: rgba(220, 229, 237);
+}
+
+QListView#Styled_ListView {
+    background-color: rgba(220, 229, 237);
+}
+
+/*QLineEdit::disabled,QComboBox::disabled,QTreeView::disabled,QTableView::disabled {
+    background-color: whitesmoke;
+}*/
+
+/*QTreeView::item {
+    min-height: 22px;
+}*/
+
+QSplitter::handle {
+    background-color: gray;
+}
+
+QSplitter::handle:horizontal {
+    width: 1px;
+}
+
+QSplitter::handle:vertical {
+    height: 1px;
+}
+
+QToolButton {
+    background-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+}
+
+QToolButton:hover:pressed {
+    background-color: gray;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+QToolButton:hover {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(105,155,200);
+}
+
+QToolButton:checked {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(105,155,200);
+}
+
+QToolButton[popupMode="1"] {
+    padding-right: 10px;
+}
+
+QToolButton::menu-button {
+    border: 1px solid transparent;
+    width: 12px;
+}
+
+QToolButton::menu-button:hover {
+    border: 1px solid rgb(105,155,200);
+}
+
+QToolButton::menu-button:pressed {
+    background-color: gray;
+    border: 1px solid black;
+}
+
+QToolButton::menu-button:hover:pressed {
+    border: 1px solid black;
+}
+
+QToolButton::down-arrow {
+    image: url(:/styledui/qss/arrow_down.png);
+}
+
+QMenu {
+    background-color: white;
+    border: 1px solid black;
+    padding: 2px 4px 2px 4px;
+}
+
+QMenu::item {
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 4px 30px 4px 30px;
+}
+
+QMenu::item:selected {
+    background-color: lightblue;
+    border: 1px solid blue;
+    margin: 1px 0px 1px 0px;
+}
+
+QMenu::icon {
+    position: absolute;
+    left: 3px;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: lightgray;
+}
+
+QScrollBar:horizontal {
+    background: transparent;
+    height: 12px;
+}
+
+QScrollBar::handle:horizontal {
+    background: lightgray;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    min-width: 20px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: gray;
+}
+
+QScrollBar::sub-line:horizontal {
+    background: transparent;
+}
+
+QScrollBar::add-line:horizontal {
+    background: transparent;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+}
+
+QScrollBar::handle:vertical {
+    background: lightgray;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: gray;
+}
+
+QScrollBar::sub-line:vertical {
+    background: transparent;
+}
+
+QScrollBar::add-line:vertical {
+    background: transparent;
+}
+
+QStatusBar::item {
+    border: 0px;
+}

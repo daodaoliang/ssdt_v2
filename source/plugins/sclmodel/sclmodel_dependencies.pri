@@ -1,0 +1,7 @@
+include(../../shared/qtlibs/extensionsystem.pri)
+include(../../shared/qtlibs/utils.pri)
+include(../../shared/qtlibs/sclparser.pri)
+include(../../libs/projectexplorer/projectexplorer.pri)
+include(../../libs/styledui/styledui.pri)
+include(../../libs/vlinkparse/vlinkparse.pri)
+include(../../plugins/core/core.pri)
