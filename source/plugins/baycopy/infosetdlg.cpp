@@ -154,32 +154,6 @@ static void FindPortConnectionInfo(ProjectExplorer::PePort *pPort,
     }
 }
 
-static void UpdateAffectedInfoSets(ProjectExplorer::PeInfoSet *pInfoSet,
-                                   ProjectExplorer::PePort *pPort,
-                                   QList<ProjectExplorer::PeInfoSet*> &lstAffectInfoSets,
-                                   const QList<ProjectExplorer::PeInfoSet*> &lstAllInfoSets)
-{
-    ProjectExplorer::PePort *pPortConnectedNew = 0;
-    pInfoSet->IsContaintPort(pPort, &pPortConnectedNew);
-
-    foreach(ProjectExplorer::PeInfoSet *pAffectInfoSet, lstAllInfoSets)
-    {
-        if(pAffectInfoSet == pInfoSet)
-            continue;
-
-        ProjectExplorer::PePort *pPortConnectedOld = 0;
-        if(pAffectInfoSet->IsContaintPort(pPort, &pPortConnectedOld))
-        {
-            if(pPortConnectedOld != pPortConnectedNew)
-            {
-                pAffectInfoSet->ReplacePort(pPortConnectedOld, pPortConnectedNew);
-                if(!lstAffectInfoSets.contains(pAffectInfoSet))
-                    lstAffectInfoSets.append(pAffectInfoSet);
-            }
-        }
-    }
-}
-
 ///////////////////////////////////////////////////////////////////////
 // TreeWidgetItemPort member functions
 ///////////////////////////////////////////////////////////////////////
@@ -1169,6 +1143,9 @@ bool InfoSetDlg::GetUiData()
         }
     }
 
+    ProjectExplorer::PeInfoSet InfoSetForward(*m_pInfoSetForward);
+    ProjectExplorer::PeInfoSet InfoSetBackward(*m_pInfoSetBackward);
+
     /////////////////////////////////////////
     // For forward infoset
     /////////////////////////////////////////
@@ -1286,46 +1263,66 @@ bool InfoSetDlg::GetUiData()
     /////////////////////////////////////////
     if(m_pCheckBoxUpdateAffectedInfoSets->isChecked())
     {
-        if(pPortForwardTx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortForwardTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortBackwardRx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortBackwardRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch1LeftRx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch1LeftRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch1RightTx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch1RightTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch2LeftRx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch2LeftRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch2RightTx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch2RightTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch3LeftRx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch3LeftRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch3RightTx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch3RightTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch4LeftRx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch4LeftRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch4RightTx)
-            UpdateAffectedInfoSets(m_pInfoSetForward, pPortSwitch4RightTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortForwardRx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortForwardRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortBackwardTx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortBackwardTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch1LeftTx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch1LeftTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch1RightRx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch1RightRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch2LeftTx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch2LeftTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch2RightRx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch2RightRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch3LeftTx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch3LeftTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch3RightRx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch3RightRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch4LeftTx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch4LeftTx, m_lstAffectedInfoSets, m_lstAllInfoSets);
-        if(pPortSwitch4RightRx)
-            UpdateAffectedInfoSets(m_pInfoSetBackward, pPortSwitch4RightRx, m_lstAffectedInfoSets, m_lstAllInfoSets);
+        QMap<ProjectExplorer::PePort*, ProjectExplorer::PePort*> mapOldToNewPorts;
+        if(InfoSetForward.GetTxPort() != m_pInfoSetForward->GetTxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetTxPort(), m_pInfoSetForward->GetTxPort());
+        if(InfoSetForward.GetRxPort() != m_pInfoSetForward->GetRxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetRxPort(), m_pInfoSetForward->GetRxPort());
+        if(InfoSetForward.GetSwitch1TxPort() != m_pInfoSetForward->GetSwitch1TxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch1TxPort(), m_pInfoSetForward->GetSwitch1TxPort());
+        if(InfoSetForward.GetSwitch1RxPort() != m_pInfoSetForward->GetSwitch1RxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch1RxPort(), m_pInfoSetForward->GetSwitch1RxPort());
+        if(InfoSetForward.GetSwitch2TxPort() != m_pInfoSetForward->GetSwitch2TxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch2TxPort(), m_pInfoSetForward->GetSwitch2TxPort());
+        if(InfoSetForward.GetSwitch2RxPort() != m_pInfoSetForward->GetSwitch2RxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch2RxPort(), m_pInfoSetForward->GetSwitch2RxPort());
+        if(InfoSetForward.GetSwitch3TxPort() != m_pInfoSetForward->GetSwitch3TxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch3TxPort(), m_pInfoSetForward->GetSwitch3TxPort());
+        if(InfoSetForward.GetSwitch3RxPort() != m_pInfoSetForward->GetSwitch3RxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch3RxPort(), m_pInfoSetForward->GetSwitch3RxPort());
+        if(InfoSetForward.GetSwitch4TxPort() != m_pInfoSetForward->GetSwitch4TxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch4TxPort(), m_pInfoSetForward->GetSwitch4TxPort());
+        if(InfoSetForward.GetSwitch4RxPort() != m_pInfoSetForward->GetSwitch4RxPort())
+            mapOldToNewPorts.insert(InfoSetForward.GetSwitch4RxPort(), m_pInfoSetForward->GetSwitch4RxPort());
+
+        if(InfoSetBackward.GetTxPort() != m_pInfoSetBackward->GetTxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetTxPort(), m_pInfoSetBackward->GetTxPort());
+        if(InfoSetBackward.GetRxPort() != m_pInfoSetBackward->GetRxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetRxPort(), m_pInfoSetBackward->GetRxPort());
+        if(InfoSetBackward.GetSwitch1TxPort() != m_pInfoSetBackward->GetSwitch1TxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch1TxPort(), m_pInfoSetBackward->GetSwitch1TxPort());
+        if(InfoSetBackward.GetSwitch1RxPort() != m_pInfoSetBackward->GetSwitch1RxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch1RxPort(), m_pInfoSetBackward->GetSwitch1RxPort());
+        if(InfoSetBackward.GetSwitch2TxPort() != m_pInfoSetBackward->GetSwitch2TxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch2TxPort(), m_pInfoSetBackward->GetSwitch2TxPort());
+        if(InfoSetBackward.GetSwitch2RxPort() != m_pInfoSetBackward->GetSwitch2RxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch2RxPort(), m_pInfoSetBackward->GetSwitch2RxPort());
+        if(InfoSetBackward.GetSwitch3TxPort() != m_pInfoSetBackward->GetSwitch3TxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch3TxPort(), m_pInfoSetBackward->GetSwitch3TxPort());
+        if(InfoSetBackward.GetSwitch3RxPort() != m_pInfoSetBackward->GetSwitch3RxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch3RxPort(), m_pInfoSetBackward->GetSwitch3RxPort());
+        if(InfoSetBackward.GetSwitch4TxPort() != m_pInfoSetBackward->GetSwitch4TxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch4TxPort(), m_pInfoSetBackward->GetSwitch4TxPort());
+        if(InfoSetBackward.GetSwitch4RxPort() != m_pInfoSetBackward->GetSwitch4RxPort())
+            mapOldToNewPorts.insert(InfoSetBackward.GetSwitch4RxPort(), m_pInfoSetBackward->GetSwitch4RxPort());
+
+        foreach(ProjectExplorer::PePort *pPortOld, mapOldToNewPorts.keys())
+        {
+            ProjectExplorer::PePort *pPortNew = mapOldToNewPorts.value(pPortOld);
+
+            foreach(ProjectExplorer::PeInfoSet *pAffectInfoSet, m_lstAllInfoSets)
+            {
+                if(pAffectInfoSet == m_pInfoSetForward || pAffectInfoSet == m_pInfoSetBackward)
+                    continue;
+
+                if(pAffectInfoSet->IsContaintPort(pPortOld, 0))
+                {
+                    pAffectInfoSet->ReplacePort(pPortOld, pPortNew);
+                    if(!m_lstAffectedInfoSets.contains(pAffectInfoSet))
+                        m_lstAffectedInfoSets.append(pAffectInfoSet);
+                }
+            }
+        }
     }
 
     return true;
